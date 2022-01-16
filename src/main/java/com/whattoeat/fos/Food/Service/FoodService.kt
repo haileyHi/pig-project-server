@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service
 @RequiredArgsConstructor
 @Service
 class FoodService {
+    @Autowired
     private lateinit var foodRepository: FoodRepository
 
     fun getFoodListByKeyword(keyword: String): ResponseEntity<Response>{
@@ -27,7 +28,7 @@ class FoodService {
     }
 
     fun getFoodListByCategory(category: String): ResponseEntity<Response>{
-        val list = foodRepository.findFoodsByCategoryOrderByNameAsc(category)
+        val list = foodRepository.findFoodsByCategory_TitleOrderByNameAsc(category)
         val arr = ArrayList<FoodDTO.FoodListResponse>()
         for (food in list){
             arr.add(FoodDTO.FoodListResponse(
