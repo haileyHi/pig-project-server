@@ -16,4 +16,15 @@ public class FoodDTO {
         var menuName: String,
         var image: String?
     )
+
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    class FoodRankResponse(
+        var rank: Int,
+        var menuId: Int,
+        var menuName: String,
+        var rankDiff: Int?,
+        var orderCount: Int
+    )
 }

@@ -19,12 +19,22 @@ class FoodController {
     private lateinit var foodService: FoodService
 
     @GetMapping("/category/{category}")
-    fun getMenuByCategory(httpRequest: HttpServletRequest, @PathVariable category: String) : ResponseEntity<Response>{
-        return foodService.getFoodListByCategory(category = category)
+    fun getMenuByCategory(httpRequest: HttpServletRequest,
+                          @PathVariable category: String,
+                          @RequestParam orderBy: String,
+                          @RequestParam page: Int,
+                          @RequestParam pageSize: Int
+    ) : ResponseEntity<Response>{
+        return foodService.getFoodListByCategory(category = category, sortBy = orderBy, page = page, pageSize = pageSize)
     }
 
     @GetMapping
     fun getMenuByKeyword(@RequestParam keyword: String): ResponseEntity<Response> {
         return foodService.getFoodListByKeyword(keyword = keyword)
+    }
+
+    @GetMapping("/rank")
+    fun getTop5Ranks(): ResponseEntity<Response>{
+        return foodService.getTop5Ranks()
     }
 }
