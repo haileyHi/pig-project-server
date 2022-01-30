@@ -19,11 +19,11 @@ interface VoteRepository : JpaRepository<Vote, VoteId> {
 
 //    fun findVotesByIdMenuId(id: Int): ArrayList<Vote>
 //
-    @Query(value = "select v.menu_id, f.name ,count(menu_id)" +
-                    "from vote v, food f" +
-                    "where v.menu_id = f.id" +
-                    "group by v.menu_id" +
-                    "order by count(menu_id) desc" +
+    @Query(value = "select v.menu_id, f.name ,count(menu_id) " +
+                    "from vote v, food f\n" +
+                    "where v.menu_id = f.id\n" +
+                    "group by v.menu_id\n" +
+                    "order by count(menu_id) desc\n" +
                     "limit 5", nativeQuery = true)
     fun findTop5RankGroupByMenuId(): ArrayList<VoteDTO.RankResult>
 

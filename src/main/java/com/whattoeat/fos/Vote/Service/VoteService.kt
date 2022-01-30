@@ -22,14 +22,17 @@ class VoteService(private val voteRepository: VoteRepository) {
     @Autowired
     private lateinit var foodRepository: FoodRepository
 
-    fun addVote(request: HttpServletRequest, list: ArrayList<Int>) : ResponseEntity<Response>{
+    fun addVote(request: HttpServletRequest, voteRequest: VoteDTO.AddVoteRequest) : ResponseEntity<Response>{
         // 토큰으로 아이디 추출하는 거 만들기.
         val userNickname = UserIdExtraction().getNickname(request)
             ?: return Response.newResult(HttpStatus.BAD_REQUEST, "닉네임 생성 후 이용해주세요.", null)
         val optUser = userRepository.findUserByNickname(userNickname)
         if(!optUser.isPresent) return Response.newResult(HttpStatus.UNAUTHORIZED, "정상적인 방법으로 닉네임을 생성 후 이용해주세요.", null)
+        if (voteRequest.list.size == 0) {
+            return Response.newResult(HttpStatus.BAD_REQUEST, "메뉴를 선택해주세요.", null)
+        }
         val getUser = optUser.get()
-        for (item in list){
+        for (item in voteRequest.list){
             val voteId = VoteId(userId = getUser.id, menuId = item)
             voteRepository.save(Vote(voteId))
         }
@@ -52,7 +55,7 @@ class VoteService(private val voteRepository: VoteRepository) {
         val topRankList: ArrayList<VoteDTO.RankResult> = voteRepository.findTop5RankGroupByMenuId()
         val rankMap = HashMap<Int, Int>()
         for (item in topRankList) {
-            rankMap[item.menuId] = item.count
+            rankMap[item.menuId as Int] = item.count as Int
         }
         val voteResult = arrayListOf<VoteDTO.VoteMenuResult>()
         for (item in data) {
@@ -68,7 +71,7 @@ class VoteService(private val voteRepository: VoteRepository) {
                 menuTitle = menu.name,
                 categoryId = menu.category?.id!!,
                 categoryName = menu.category?.title!!,
-                count = voteCnt as Int,
+                count = Integer.valueOf(voteCnt.toString()),
                 rank = rankMap.getOrDefault(menu.id, -1)
             )
             )
