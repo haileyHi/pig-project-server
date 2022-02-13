@@ -1,10 +1,7 @@
 package com.whattoeat.fos.Vote.DTO
 
 import com.fasterxml.jackson.annotation.JsonProperty
-import lombok.AllArgsConstructor
-import lombok.Builder
-import lombok.Getter
-import lombok.NoArgsConstructor
+import lombok.*
 
 class VoteDTO {
     @Getter
@@ -26,8 +23,8 @@ class VoteDTO {
     )
 
     interface RankResult {
-        val menuId: Integer
-        val menuTitle: String
+        val menu_id: Int
+        val name: String
         val count: Integer
     }
 }

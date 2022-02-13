@@ -4,11 +4,15 @@ import org.springframework.web.servlet.HandlerInterceptor
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
-class JwtTokenInterceptor: HandlerInterceptor {
+class JwtTokenInterceptor(): HandlerInterceptor {
     override fun preHandle (
         request: HttpServletRequest,
         response: HttpServletResponse,
         handler: Any): Boolean {
+        if (request.method.equals("OPTIONS")) {
+            response.status = HttpServletResponse.SC_OK
+            return true
+        }
         val header = request.getHeader(AuthConstants.AUTH_HEADER)
 
         if (header != null) {

@@ -21,7 +21,7 @@ class FoodController {
     @GetMapping("/category/{category}")
     fun getMenuByCategory(httpRequest: HttpServletRequest,
                           @PathVariable category: String,
-                          @RequestParam orderBy: String,
+                          @RequestParam orderBy: String = "id",
                           @RequestParam page: Int,
                           @RequestParam pageSize: Int
     ) : ResponseEntity<Response>{

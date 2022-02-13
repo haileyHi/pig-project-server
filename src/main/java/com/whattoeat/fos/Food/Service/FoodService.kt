@@ -1,6 +1,7 @@
 package com.whattoeat.fos.Food.Service
 
 import com.whattoeat.fos.Food.DTO.FoodDTO
+import com.whattoeat.fos.Food.Domain.Entity.Rank
 import com.whattoeat.fos.Food.Domain.Repository.FoodRepository
 import com.whattoeat.fos.Food.Domain.Repository.RankRepository
 import com.whattoeat.fos.Util.Response
@@ -57,21 +58,23 @@ class FoodService {
     // 5개 순위 가져오기
     fun getTop5Ranks() : ResponseEntity<Response>{
         // 지금 상위 5개
-        val curList: List<Array<Any>> = foodRepository.findTopRank()
-        val prevList = rankRepository.findAll()
+        val curList: List<FoodDTO.FoodRank> = foodRepository.findTopRank()
+        val prevList: List<Rank>? = rankRepository.findRanksByIdIsLessThanOrderById(6)
 
         val prevMap : HashMap<Int, Int> = HashMap()
-        for (item in prevList){
-            prevMap.put(item.menuId, item.id)
+        if (prevList != null) {
+            for (item in prevList) {
+                prevMap.put(item.menuId, item.id)
+            }
         }
 
         val data = mutableListOf<FoodDTO.FoodRankResponse>()
         for (item in curList) {
             // rank, menu_id, menu_name, count 순서
-            val rank: Int = item[0] as Int;
-            val menuId: Int = item[1] as Int;
-            val menuName: String = item[2] as String;
-            val count: Int = item[3] as Int;
+            val rank: Int = item.rank as Int;
+            val menuId: Int = item.menuId as Int;
+            val menuName: String = item.menuName as String;
+            val count: Int = item.count as Int;
             // 기존에도 순위에 들었던 메뉴라면,
             if (!prevMap.containsKey(menuId)){
                 data.add(

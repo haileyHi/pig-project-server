@@ -1,5 +1,3 @@
 package com.whattoeat.fos.Exception
 
-class UserNotFoundException(): RuntimeException() {
-
-}
+class UserNotFoundException(nickname: String) : RuntimeException("$nickname NotFoundException")

@@ -5,11 +5,13 @@ import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 
 class UserDetailsImpl(val user: User): UserDetails {
-    override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
+
+    private val authorities: Collection<GrantedAuthority?>? = null
+    override fun getAuthorities(): Collection<GrantedAuthority?>? {
         return authorities
     }
 
-    override fun getPassword(): String = (user.password).toString()
+    override fun getPassword(): String = user.password
 
     override fun getUsername(): String? = user.nickname
 
