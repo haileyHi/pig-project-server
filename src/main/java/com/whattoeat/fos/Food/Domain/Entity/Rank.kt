@@ -6,7 +6,7 @@ import javax.persistence.Id
 import javax.persistence.Table
 
 @Entity
-@Table(name = "ranking")
+@Table(name = "rank")
 class Rank (
     @Id
     @Column(name = "id", nullable = false)
