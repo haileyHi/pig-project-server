@@ -18,25 +18,25 @@ import javax.persistence.*
 )
 @DynamicUpdate
 @DynamicInsert
-open class Food {
+class Food {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    open var id: Int = 0
+    var id: Int = 0
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "category_id", nullable = false)
-    open var category: Category? = null
+    var category: Category? = null
 
     @Column(name = "name", nullable = false, length = 45)
-    open var name: String = ""
+    var name: String = ""
 
-    @Column(name= "image", nullable = true, length = 100)
-    open var image: String? = null
+    @Column(name = "image", nullable = true, length = 100)
+    var image: String? = null
 
     @Column(name = "detail", nullable = true, length = 100)
-    open var detail: String? = null
+    var detail: String? = null
 
     @Column(name = "is_approved")
-    open var isApproved: Int? = null
+    var isApproved: Int? = null
 }
