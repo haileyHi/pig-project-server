@@ -108,7 +108,7 @@ class VoteService(private val voteRepository: VoteRepository) {
                 categoryId = menu.category?.id!!,
                 categoryName = menu.category?.title!!,
                 count = Integer.valueOf(voteCnt.toString()),
-                rank = rankMap.getOrDefault(menu.id, -1)
+                rank = rankMap.getOrDefault(menu.id, -1)?: -1
             ))
         }
         return voteResult
