@@ -31,4 +31,9 @@ class VoteController(private val voteService: VoteService) {
     fun getOrderTop5() : ResponseEntity<Response>{
         return voteService.findTopRank()
     }
+
+    @GetMapping("/{id}")
+    fun getOrderMenucount(menuId: Int) : ResponseEntity<Response>{
+        return voteService.findVotesByMenuId(menuId = menuId)
+    }
 }

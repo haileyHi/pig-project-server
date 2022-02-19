@@ -19,6 +19,8 @@ interface VoteRepository : JpaRepository<Vote, VoteId> {
 
 //    fun findVotesByIdMenuId(id: Int): ArrayList<Vote>
 //
+    fun countVotesById_MenuId(id: Int) : Long
+
     @Query(value = "select v.menu_id, f.name ,count(menu_id) " +
                     "from vote v, food f\n" +
                     "where v.menu_id = f.id\n" +

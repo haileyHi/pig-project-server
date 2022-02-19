@@ -115,7 +115,12 @@ class VoteService(private val voteRepository: VoteRepository) {
     }
 
     fun findVotesByMenuId(menuId: Int): ResponseEntity<Response> {
-        TODO()
+//        val voteTotal = voteRepository.findVotesByIdMenuId(menuId)
+        val voteCounts = voteRepository.countVotesById_MenuId(menuId)
+
+        val data = voteCounts.toInt()
+
+        return Response.newResult(HttpStatus.OK, "투표 결과를 불러왔어요.", data)
     }
 
     fun findVotedUserCount() : ResponseEntity<Response> {
