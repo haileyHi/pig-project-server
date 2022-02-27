@@ -8,8 +8,8 @@ class HeaderFilter : Filter {
     @Throws(IOException::class, ServletException::class)
     override fun doFilter(request: ServletRequest?, response: ServletResponse, chain: FilterChain) {
         val res: HttpServletResponse = response as HttpServletResponse
-        res.setHeader("Access-Control-Allow-Origin", "*")
-        res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
+        res.addHeader("Access-Control-Allow-Origin", "*")
+        res.addHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
         res.setHeader("Access-Control-Max-Age", "3600")
         res.setHeader(
             "Access-Control-Allow-Headers",
