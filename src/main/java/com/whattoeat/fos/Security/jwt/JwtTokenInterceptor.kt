@@ -1,10 +1,12 @@
 package com.whattoeat.fos.Security.jwt
 
+import org.springframework.stereotype.Component
 import org.springframework.web.servlet.HandlerInterceptor
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
-class JwtTokenInterceptor(): HandlerInterceptor {
+@Component
+class JwtTokenInterceptor: HandlerInterceptor {
     override fun preHandle (
         request: HttpServletRequest,
         response: HttpServletResponse,
